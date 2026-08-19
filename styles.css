@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f7f8fb;
+  color: #202124;
+}
+
+.container {
+  max-width: 980px;
+  margin: 24px auto;
+  padding: 0 16px 40px;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+
+input {
+  padding: 8px;
+  min-width: 120px;
+}
+
+button {
+  padding: 8px 14px;
+  align-self: end;
+  cursor: pointer;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 16px 0;
+}
+
+.card {
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.hidden {
+  display: none;
+}
+
+#status {
+  min-height: 18px;
+}

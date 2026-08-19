@@ -1,231 +1,90 @@
-# sentiment-based-stock-prediction
-sentiment based stock prediction
-# 📈 Sentiment-Based Stock Prediction
+# Stock Price Time Series + Sentiment Analysis
 
-A machine learning project that combines **stock market time-series data** with **sentiment analysis** to study and predict stock price movements. The project includes a Python-based prediction pipeline and a web interface for interacting with the results.
+This project performs:
 
-## 🚀 Project Overview
+- Historical stock price time-series analysis
+- Trend and volatility metrics
+- Maximum drawdown calculation
+- News headline sentiment scoring
 
-Traditional stock prediction models primarily rely on historical price and volume data. However, stock prices are also influenced by public opinion, news, and market sentiment.
+## Setup
 
-This project combines:
-
-* 📊 Historical stock market data
-* 📰 Sentiment analysis
-* 🤖 Machine learning
-* 📈 Time-series analysis
-* 🌐 Flask backend
-* 💻 HTML, CSS, and JavaScript frontend
-
-The goal is to investigate whether incorporating sentiment information can improve stock market prediction compared with using historical stock data alone.
-
-## 🛠️ Technologies Used
-
-### Machine Learning & Data Analysis
-
-* Python
-* Pandas
-* NumPy
-* Scikit-learn
-* Matplotlib
-* Seaborn
-* Jupyter Notebook
-
-### Sentiment Analysis
-
-* Natural Language Processing (NLP)
-* VADER Sentiment Analysis
-
-### Web Application
-
-* Flask
-* HTML
-* CSS
-* JavaScript
-
-## 📂 Project Structure
-
-```text
-DA_Project/
-│
-├── backend/
-│   └── app.py
-│
-├── frontend/
-│   ├── index.html
-│   ├── main.js
-│   └── styles.css
-│
-├── stock_time_series_sentiment.ipynb
-├── stock_time_series_sentiment.py
-├── requirements.txt
-└── README.md
-```
-
-## 🔄 Workflow
-
-The overall workflow of the project is:
-
-```text
-Historical Stock Data
-        │
-        ▼
-Data Preprocessing
-        │
-        ▼
-Time-Series Feature Extraction
-        │
-        ├───────────────┐
-        │               │
-        ▼               ▼
-Stock Features     Sentiment Data
-        │               │
-        └───────┬───────┘
-                ▼
-       Feature Integration
-                │
-                ▼
-       Machine Learning Model
-                │
-                ▼
-       Stock Price Prediction
-                │
-                ▼
-          Web Interface
-```
-
-## 📊 Features
-
-* Historical stock price analysis
-* Time-series data processing
-* Sentiment extraction from textual information
-* Integration of sentiment and stock-market features
-* Machine learning-based prediction
-* Interactive frontend
-* Flask backend for serving the application
-
-## 💻 Installation
-
-### 1. Clone the repository
-
-```bash
-git clone https://github.com/YOUR-USERNAME/sentiment-based-stock-prediction.git
-cd sentiment-based-stock-prediction
-```
-
-### 2. Create a virtual environment
-
-```bash
-python -m venv venv
-```
-
-Activate it:
-
-**Windows**
-
-```bash
-venv\Scripts\activate
-```
-
-**Linux / macOS**
-
-```bash
-source venv/bin/activate
-```
-
-### 3. Install dependencies
+1. Create and activate a virtual environment (optional but recommended).
+2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## ▶️ Running the Project
+## Full Stack App (Frontend + Backend)
 
-### Run the Python analysis
-
-```bash
-python stock_time_series_sentiment.py
-```
-
-Alternatively, open the notebook:
+### 1) Start backend API
 
 ```bash
-jupyter notebook stock_time_series_sentiment.ipynb
+python backend/app.py
 ```
 
-### Run the Flask application
+Backend runs at `http://localhost:5000`.
 
-Navigate to the backend directory:
+### 2) Open the website
+
+With the backend running, open **`http://localhost:5000`** — the API and the dashboard are served together (no 404 on `/`).
+
+**Optional:** serve only the static UI on another port (the page will still call the API on port 5000):
 
 ```bash
-cd backend
-python app.py
+python -m http.server 5500 -d frontend
 ```
 
-The application can then be accessed through the local URL displayed by Flask.
+Then open `http://localhost:5500`.
 
-## 🌐 Frontend
+## Run
 
-The frontend is located inside:
-
-```text
-frontend/
+```bash
+python stock_time_series_sentiment.py --ticker AAPL --period 1y --interval 1d
 ```
 
-It contains:
+Without chart:
 
-* `index.html` — Web page structure
-* `styles.css` — User interface styling
-* `main.js` — Frontend functionality and backend communication
-
-## 📓 Jupyter Notebook
-
-The project also includes:
-
-```text
-stock_time_series_sentiment.ipynb
+```bash
+python stock_time_series_sentiment.py --ticker TSLA --no-plot
 ```
 
-The notebook provides an interactive environment for:
+## Period (days, months, years)
 
-* Data preprocessing
-* Exploratory data analysis
-* Sentiment analysis
-* Feature engineering
-* Model training
-* Prediction and evaluation
-* Visualization of results
+Data comes from Yahoo Finance. The `period` string must be one of their codes, or a custom **last N days** value.
 
-## 📈 Results
+| Kind | Values |
+|------|--------|
+| **Days** | `1d`, `5d`, or custom `30d`, `90d`, … (any positive integer + `d`) |
+| **Months** | `1mo`, `3mo`, `6mo` |
+| **Years** | `1y`, `2y`, `5y`, `10y` |
+| **Other** | `ytd` (year to date), `max` (all history Yahoo has) |
 
-The project evaluates stock prediction performance using historical market information along with sentiment-related features.
+Examples:
 
-Performance can be assessed using appropriate regression or prediction metrics such as:
+```bash
+python stock_time_series_sentiment.py --ticker AAPL --period 6mo
+python stock_time_series_sentiment.py --ticker MSFT --period 30d
+```
 
-* Mean Absolute Error (MAE)
-* Mean Squared Error (MSE)
-* Root Mean Squared Error (RMSE)
-* R² Score
+## Arguments
 
-Visualizations are also used to compare predicted and actual stock values.
+- `--ticker`: stock symbol (default: `AAPL`)
+- `--period`: lookback (default: `1y`) — see table above
+- `--interval`: bar size, e.g. `1d`, `1wk`, `1h` (default: `1d`)
+- `--no-plot`: print-only mode, no chart popup
 
-## 🔮 Future Improvements
+## Notebook
 
-Possible improvements include:
+Open and run:
 
-* Integration of real-time stock market APIs
-* Real-time news collection
-* More advanced NLP models such as BERT
-* LSTM/GRU-based time-series models
-* Transformer-based stock prediction
-* Social-media sentiment analysis
-* Improved feature engineering
-* Deployment using cloud platforms
-* Real-time prediction dashboard
+- `stock_time_series_sentiment.ipynb`
 
-## ⚠️ Disclaimer
+You can change ticker/period/interval in the parameter cell and run all cells.
 
-This project is intended for **educational and research purposes only**.
+## Notes
 
-Stock market predictions are inherently uncertain. The predictions generated by this project should **not be considered financial advice or recommendations to buy or sell securities**.
-
+- Data and news are fetched from Yahoo Finance via `yfinance`.
+- Sentiment uses VADER compound scores averaged across recent headlines.
+- Frontend calls backend endpoint: `GET /api/analyze?ticker=AAPL&period=1y&interval=1d`

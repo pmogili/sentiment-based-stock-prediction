@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock + Sentiment Dashboard</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <h1>Stock Price + Sentiment Dashboard</h1>
+
+      <form id="analyze-form" class="controls">
+        <label>
+          Ticker
+          <input id="ticker" value="AAPL" />
+        </label>
+        <label>
+          Period (days / months / years)
+          <select id="period">
+            <optgroup label="Days">
+              <option value="1d">1 day</option>
+              <option value="5d">5 days</option>
+              <option value="30d">30 days (custom range)</option>
+              <option value="90d">90 days (custom range)</option>
+            </optgroup>
+            <optgroup label="Months">
+              <option value="1mo">1 month</option>
+              <option value="3mo">3 months</option>
+              <option value="6mo">6 months</option>
+            </optgroup>
+            <optgroup label="Years">
+              <option value="1y" selected>1 year</option>
+              <option value="2y">2 years</option>
+              <option value="5y">5 years</option>
+              <option value="10y">10 years</option>
+            </optgroup>
+            <optgroup label="Other">
+              <option value="ytd">Year to date</option>
+              <option value="max">Max (all available)</option>
+            </optgroup>
+          </select>
+        </label>
+        <label>
+          Interval
+          <input id="interval" value="1d" />
+        </label>
+        <button type="submit">Analyze</button>
+      </form>
+
+      <p id="status"></p>
+
+      <section id="results" class="hidden">
+        <div class="cards">
+          <div class="card"><strong>Ticker:</strong> <span id="r-ticker"></span></div>
+          <div class="card"><strong>Trend slope:</strong> <span id="r-trend"></span></div>
+          <div class="card"><strong>Volatility:</strong> <span id="r-vol"></span></div>
+          <div class="card"><strong>Max drawdown:</strong> <span id="r-dd"></span></div>
+          <div class="card"><strong>Sentiment:</strong> <span id="r-sent"></span></div>
+        </div>
+
+        <h3>Price Series</h3>
+        <canvas id="priceChart"></canvas>
+
+        <h3>Headlines</h3>
+        <ul id="headlines"></ul>
+      </section>
+    </main>
+
+    <script src="./main.js"></script>
+  </body>
+  </html>
